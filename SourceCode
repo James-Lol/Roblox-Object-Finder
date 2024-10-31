@@ -108,7 +108,7 @@ local function SearchScripts()
 	ScriptContents = {}
 
 	for _, Object in ipairs(game:GetDescendants()) do
-		if Object:IsA("LocalScript") then
+		if Object:IsA("LocalScript") and not Object:IsA("ModuleScript") then
 			local ScriptName = Object.Name
 			local Code = nil
 			for Attempt = 1, 3 do
