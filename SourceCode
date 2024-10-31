@@ -26,9 +26,6 @@ local function SearchForObjectPath(Script, ObjectPath)
 	local NormalizedObjectPath = ConvertMultipleServicePaths(ObjectPath)
 	local NormalizedScriptContent = ConvertMultipleServicePaths(Script)
 
-	print("Normalized Object Path: ", NormalizedObjectPath)
-	print("Normalized Script Content: ", NormalizedScriptContent)
-
 	local MainPattern = NormalizedObjectPath:gsub("%.", "%%.")
 	local Patterns = {
 		MainPattern,
@@ -43,13 +40,8 @@ local function SearchForObjectPath(Script, ObjectPath)
 	local Found = false
 	for _, Pattern in ipairs(Patterns) do
 		if NormalizedScriptContent:find(Pattern) then
-			print("Object path or alias access found: '" .. Pattern .. "'")
 			Found = true
 		end
-	end
-
-	if not Found then
-		print("Object path '" .. NormalizedObjectPath .. "' not found in the script.")
 	end
 
 	return Found
