@@ -106,22 +106,8 @@ end
 
 local function SearchScripts()
 	ScriptContents = {}
-	local SearchPlaces = {
-    game.Players.LocalPlayer:WaitForChild("PlayerGui"),
-    game.Players.LocalPlayer:WaitForChild("PlayerScripts"),
-    game.Players.LocalPlayer:WaitForChild("Backpack"),
-    game.Players.LocalPlayer.Character,
-    game.Players.LocalPlayer,
-    game.StarterPlayer:WaitForChild("StarterPlayerScripts"),
-    game.StarterPlayer:WaitForChild("StarterCharacterScripts"),
-    game.StarterGui,
-    game.StarterPack,
-    game.ReplicatedStorage,
-    game.ReplicatedFirst
-	}
 
-for _, SearchPlace in ipairs(SearchPlaces) do
-	for _, Object in ipairs(SearchPlace:GetDescendants()) do
+	for Index, Object in ipairs(game:GetDescendants()) do
 		if Object:IsA("LocalScript") and not Object:IsA("ModuleScript") then
 			local ScriptName = Object.Name
 			local Code = nil
@@ -131,6 +117,7 @@ for _, SearchPlace in ipairs(SearchPlaces) do
 					Code = Result
 					break
 				end
+				task.wait(0.1)
 			end
 
 			if Code then
@@ -145,8 +132,11 @@ for _, SearchPlace in ipairs(SearchPlaces) do
 			end
 			task.wait(0.05)
 		end
+		if Index % 100 == 0 then
+			task.wait()
+		end
 	end
-end
+
 	UpdateScrollingFrame()
 end
 
