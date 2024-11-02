@@ -132,7 +132,10 @@ local function SearchScripts()
 		if Object.ClassName == "LocalScript" then
             coroutine.wrap(function()
                 local ScriptName = Object.Name
-			    local Success, Result = pcall(env.decompile or function() end, Object)
+			    local Success, Result = pcall(function()
+    					return decompile(Object)
+			end)
+
 
 			    if Success then
 				    local UniqueName = ScriptName
